@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AppBar, Button, Grid, Toolbar } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { LOGIN_ROUTE } from '../utils/consts'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { Context } from '../index'
 
 const NavBar = () => {
-  const user = false
+  const {auth} = useContext(Context)
+  const [user] = useAuthState(auth)
   const navigate = useNavigate()
 
   return (
@@ -16,6 +19,7 @@ const NavBar = () => {
             <Button
               style={{ color: 'white' }}
               variant={'contained'}
+              onClick={() => auth.signOut()}
             >
               Выйти
             </Button>
